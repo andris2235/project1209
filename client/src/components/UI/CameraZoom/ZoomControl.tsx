@@ -2,12 +2,12 @@ import React, { useRef, type Dispatch, type SetStateAction } from "react";
 import "./ZoomControl.css";
 import type { ZoomValues } from "../../../types/zoom";
 
-interface ZoomControlProps{
+interface ZoomControlProps {
   direction: ZoomValues
   setDirection: Dispatch<SetStateAction<ZoomValues>>
 }
 
-const ZoomControl = ({direction, setDirection}: ZoomControlProps) => {
+const ZoomControl = ({ direction, setDirection }: ZoomControlProps) => {
   const startY = useRef<number | null>(null);
 
   // ======== TOUCH EVENTS =========
@@ -59,15 +59,13 @@ const ZoomControl = ({direction, setDirection}: ZoomControlProps) => {
 
   return (
     <div
-      className={`zoom-wrapper ${direction === "up" ? "active-up" : ""} ${
-        direction === "down" ? "active-down" : ""
-      }`}
+      className={`zoom-wrapper ${direction === "up" ? "active-up" : ""} ${direction === "down" ? "active-down" : ""
+        }`}
     >
       <div className="zoom-label">+</div>
       <div
-        className={`zoom-thumb ${
-          direction === "up" ? "up" : direction === "down" ? "down" : ""
-        }`}
+        className={`zoom-thumb ${direction === "up" ? "up" : direction === "down" ? "down" : ""
+          }`}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

@@ -1,49 +1,72 @@
 .zoom-wrapper {
+  position: relative;
   width: 50px;
+  /* ширина из дизайна */
   height: 152px;
-  background-blend-mode: luminosity;
-  background: rgba(0, 0, 0, 0.2);
+  /* высота из дизайна */
+  padding: 8px 4px;
+  /* внутренние отступы */
+  border-radius: 24px;
+  /* скругление из дизайна */
 
-  border-radius: 30px;
+  /* многослойный фон из Figma */
+  background:
+    rgba(214, 214, 214, 0.45),
+    rgba(0, 0, 0, 0.08);
+
+  /* glassmorphism: размытие фоновых элементов */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  /* тень для объёма */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 4px;
-  position: relative;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
-  transition: background 0.3s ease;
 }
 
-.zoom-wrapper.active-up::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 18%;
-  background: linear-gradient(to bottom, #e599f7, #91a7ff00);
-  transition: opacity 0.3s ease;
-
-  opacity: 0.64;
-  z-index: 0;
-}
-
+/* Общие стили для обоих направлений (up/down) */
+.zoom-wrapper.active-up::before,
 .zoom-wrapper.active-down::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 18%;
-  background: linear-gradient(to top, #e699f7b0, #91a7ff00);
-  /* background: linear-gradient(to top, #ca97ea70, #90bffd91); */
+  pointer-events: none;
+  width: 50px;
+  /* ширина SVG-оболочки */
+  height: 83px;
+  /* высота SVG-оболочки */
+  background: linear-gradient(90deg, #ca97ea 0%, #90bffd 100%);
+  filter: blur(32px);
+  opacity: 0;
+  animation: zoomGlow 0.5s forwards;
   transition: opacity 0.3s ease;
-  opacity: 0.64;
-  z-index: 0;
 }
 
-.zoom-wrapper::before,
-.zoom-wrapper::after {
-  opacity: 0;
+/* Анимация появления */
+@keyframes zoomGlow {
+  to {
+    opacity: 0.64;
+  }
+}
+
+/* Up: смещаем наверх */
+.zoom-wrapper.active-up::before {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Down: смещаем вниз */
+.zoom-wrapper.active-down::after {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
 }
 
 .zoom-label {
@@ -55,7 +78,7 @@
 .zoom-thumb {
   width: 38px;
   height: 24px;
-  background: white;
+  background: #fff;
   border-radius: 100px;
   cursor: pointer;
   position: relative;

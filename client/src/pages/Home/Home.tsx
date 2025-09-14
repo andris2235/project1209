@@ -10,9 +10,9 @@ import styles from "./style.module.scss";
 import type { ZoomValues } from "../../types/zoom";
 import type { ClickType } from "../../types/joystik";
 import notificationStore from "../../store/notificationStore";
-import { getCameraDelta, handlerAxiosError, sleep } from "../../utils/func";
+import { handlerAxiosError, sleep } from "../../utils/func";
 import { AnimatePresence, motion } from "framer-motion";
-import { moveCamera, setPreset, setTvState, stopCamera } from "../../http/cameraAPI";
+import { setPreset, setTvState } from "../../http/cameraAPI";
 
 const presets: PresetItem[] = [
   {
